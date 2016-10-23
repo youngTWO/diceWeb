@@ -10,6 +10,7 @@ public class DicegameService {
 	private static final DicegameService instance = new DicegameService();
 	
 	private String playerName;
+	private String resultMessage=" ";
 	
 	private int[] cell;
 	final private int Goal = 29;
@@ -59,14 +60,17 @@ public class DicegameService {
 		
 		//두 player가 동시에 goal에 도달했더면 무승부
 		if(curCell1 >= Goal && curCell2 >= Goal) {
+			resultMessage = "Draw";
 			return WinningStatus.Draw;
 		}
 		//player가 먼저 goal에 도달했다면 player 승
 		else if(curCell1 >= Goal && curCell2 < Goal) {
+			resultMessage = "Win";
 			return WinningStatus.Player;
 		}
 		//alpha가 먼저 goal에 도달했다면 alpha 승
 		else if(curCell1 < Goal && curCell2 >= Goal) {
+			resultMessage = "Lose";
 			return WinningStatus.AlphaDice;
 		}
 		else {
@@ -87,6 +91,10 @@ public class DicegameService {
 	
 	public String getPlayerName() {
 		return playerName;
+	}
+	
+	public String getResultMessage() {
+		return resultMessage;
 	}
 	
 	public int getFaceValue1() {

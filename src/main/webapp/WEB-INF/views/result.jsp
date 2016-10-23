@@ -7,6 +7,9 @@
 <title>Result</title>
 </head>
 <body>
-	Result page
+	${service.getResultMessage()} <br/>
+	
+	<input type="button" name="score" onclick="location.href='score'"" value="Score" />
+	<input type="button" onclick="window.close()" value="Exit" />
 </body>
 </html>

@@ -1,5 +1,7 @@
 package kr.ac.youngseo.controller;
 
+import java.io.IOException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,18 +17,25 @@ import kr.ac.youngseo.service.DicegameService;
 public class DicegameController {
 	
 	@RequestMapping(value="/dicegame", method = RequestMethod.GET)
-	public String dicegame(HttpServletRequest request, HttpServletResponse response) {
+	public String dicegame(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
 		
 		String name;
 		DicegameService service = (DicegameService) DicegameService.getInstance();
 		
-		String page;
+		
 		
 		// 만약 이전에 사용했던 사용자 이름이라면, DB에서 정보 가져오기
 		// 신규 플레이어라면 전적 0으로 초기화
 		
+		
 		if(request.getParameter("roll") != null) {
-			service.roll();
+			WinningStatus ws = service.roll();
+			
+			if(ws != WinningStatus.NotYet) {
+				String page = "http://localhost:8080/youngseo/result";
+				response.sendRedirect(page);
+			}
 		}
 		else {
 			name= request.getParameter("name");
