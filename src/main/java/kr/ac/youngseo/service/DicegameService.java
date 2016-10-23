@@ -48,6 +48,13 @@ public class DicegameService {
 		make_bonus_cells();
 	}
 	
+	public void init() {
+		faceValue1 = 0;
+		faceValue2 = 0;
+		curCell1 = 0;
+		curCell2 = 0;
+	}
+	
 	public WinningStatus roll() {
 		//dice의 roll()로 난수 생성
 		faceValue1 = playerDice.roll();
@@ -61,16 +68,26 @@ public class DicegameService {
 		//두 player가 동시에 goal에 도달했더면 무승부
 		if(curCell1 >= Goal && curCell2 >= Goal) {
 			resultMessage = "Draw";
+			
+			//새로고침이나 뒤로가기 했을 때 유지되는 것 방지
+			init();
+			
 			return WinningStatus.Draw;
 		}
 		//player가 먼저 goal에 도달했다면 player 승
 		else if(curCell1 >= Goal && curCell2 < Goal) {
-			resultMessage = "Win";
+			resultMessage = getPlayerName() + " Wins";
+			
+			init();
+			
 			return WinningStatus.Player;
 		}
 		//alpha가 먼저 goal에 도달했다면 alpha 승
 		else if(curCell1 < Goal && curCell2 >= Goal) {
-			resultMessage = "Lose";
+			resultMessage = "AlphaDice Wins";
+			
+			init();
+			
 			return WinningStatus.AlphaDice;
 		}
 		else {
