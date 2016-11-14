@@ -2,44 +2,24 @@ package kr.ac.youngseo.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.ac.youngseo.dao.ScoreDAO;
 import kr.ac.youngseo.model.Score;
 
-@Service
+@Service("scoreService")
 public class ScoreService {
 
-	private static final ScoreService instance = new ScoreService();
-	
-	Score score;
-	ScoreDAO scoreDAO;
-	
-	public Score initScore(String playerName) throws Exception {
-		
-		Score score = scoreDAO.selecOne(playerName);
-		
-		if(score == null) {
-			score = new Score().setplayerName(playerName).setWin(0).setDraw(0).setLose(0);
-			scoreDAO.insertScore(score);
-		}
-		
-		return score;	
-	}
-	
-	public static ScoreService getInstance() {
-		return instance;
-	}
-	
-	public List<Score> scoreView() throws Exception {
+	private ScoreDAO scoreDAO;
 
-		List<Score> scores = scoreDAO.selectAll();
-
-		return scores;
+	@Autowired
+	public void setScoreDAO(ScoreDAO scoreDAO) {
+		this.scoreDAO = scoreDAO;
 	}
 	
-	public void updateScore(Score score) throws Exception {
-		
-		scoreDAO.update(score);
+	public List<Score> getCurrent() {
+		return scoreDAO.getScores();
 	}
 }
+ 

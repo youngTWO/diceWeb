@@ -23,6 +23,10 @@ public class DicegameService {
 	private int curCell1;
 	private int curCell2;
 	
+	
+	//0이면 수정 X, 1이면 수정 O
+	private int isFixed = 0;
+	
 	public static DicegameService getInstance() {
 		return instance;
 	}
@@ -132,20 +136,30 @@ public class DicegameService {
 	
 	// trap 설치
 	private void make_trap_cells() {
-		cell[10] = 0;
-		cell[28] = 0;
-		cell[8] = 3;
-		cell[15] = 5;
-		cell[21] = 12;
-		cell[25] = 17;
+		if(isFixed == 0) {
+			cell[10] = 0;
+			cell[28] = 0;
+			cell[8] = 3;
+			cell[15] = 5;
+			cell[21] = 12;
+			cell[25] = 17;
+		}
+		else {
+			
+		}
 	}
 
 	// bonus 설치
 	private void make_bonus_cells() {
-		cell[11] = 20;
-		cell[26] = 27;
-		cell[9] = 14;
-		cell[16] = 22;
+		if(isFixed == 0) {
+			cell[11] = 20;
+			cell[26] = 27;
+			cell[9] = 14;
+			cell[16] = 22;
+		}
+		else {
+			
+		}
 	}
 	
 	/*

@@ -2,16 +2,30 @@ package kr.ac.youngseo.model;
 
 public class Score {
 	
-	private String playerName;
+	private String name;
 	private int win;
 	private int draw;
 	private int lose;
 	
-	public String getplayerName() {
-		return playerName;
+	public Score() {
 	}
-	public Score setplayerName(String name) {
-		this.playerName = name;
+
+	public Score(String playerName, int win, int draw, int lose) {
+		this.name = playerName;
+		this.win = win;
+		this.draw = draw;
+		this.lose = lose;
+	}
+	
+	public String toString() {
+		return "Score [name=" + name + ", win=" + win + ", draw=" + draw + ", lose=" + lose + "]";
+	}
+
+	public String getName() {
+		return name;
+	}
+	public Score setName(String name) {
+		this.name = name;
 		
 		return this;
 	}

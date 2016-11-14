@@ -2,6 +2,7 @@ package kr.ac.youngseo.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,18 +14,25 @@ import kr.ac.youngseo.service.ScoreService;
 @Controller
 public class ScoreController {
 	
+	private ScoreService scoreService;
+	
+	
+	@Autowired
+	public void setScoreService(ScoreService scoreService) {
+		this.scoreService = scoreService;
+	}
+
 	@RequestMapping(value="/score", method = RequestMethod.GET)
-	public String score(Model model) throws Exception {
+	public String score(Model model) {
 		
-		/*
-		ScoreService scoreService = (ScoreService) ScoreService.getInstance();
-		
-		List<Score> score = scoreService.scoreView();
+		List<Score> score = scoreService.getCurrent();
 		
 		model.addAttribute("score", score);
-		*/
-		
 		
 		return "score";
 	}
+	
+	/*
+	 *
+	 */
 }
